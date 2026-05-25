@@ -28,3 +28,16 @@ HELP.md
 .kotlin
 Thumbs.db
 .DS_Store
+
+
+# Carpetas de construcción de Gradle (Temporal)
+.gradle/
+build/
+
+# Archivos y carpetas del entorno de Project IDX / VS Code
+.idx/
+.vscode/
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
