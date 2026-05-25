@@ -17,9 +17,16 @@ import lombok.Builder;
 @EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true) 
 @ToString(callSuper = true)
 public class Producto extends Base {
+    
+    // Le decimos a Lombok que incluya explícitamente el id heredado de Base
+    @EqualsAndHashCode.Include
+    public Long getId() {
+        return super.getId();
+    }
+
     private String nombre;
     private Double precio;
-    
+        
     @Builder.Default
     private String descripcion = "Sin descripción";
     

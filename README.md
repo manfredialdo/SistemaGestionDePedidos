@@ -56,3 +56,6 @@ TP-LOMBOK-DTO
 
 
 
+
+
+java -cp build/classes/java/main com.tup.programacion3.Main

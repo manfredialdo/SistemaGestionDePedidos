@@ -5,6 +5,8 @@ import com.tup.programacion3.enums.*;
 import java.time.LocalDate;
 import java.util.Set;
 
+import com.tup.programacion3.dtos.UsuarioDTO;
+
 public class Main {
     public static void main(String[] args) {
         System.out.println("====== SIMULACIÓN CON REGLAS UML Y SETS ======\n");
@@ -149,5 +151,26 @@ public class Main {
         System.out.println("   === Verificación de bloqueo en la Categoría ===");
         System.out.println("   Elementos en Set iniciales (Pizzas): " + tamañoAntes + " | Elementos tras intentar duplicar: " + tamañoDespues);
         System.out.println("   Resultado: El Set bloqueó el clon utilizando el contrato equals/hashCode.");
+
+
+
+        // CONSIGNA 6 
+        System.out.println("   === [DTO] Protegiendo Datos Sensibles del Cliente ===");
+        // Creamos el DTO pasando solo los campos permitidos de la entidad original
+        UsuarioDTO userDTO = new UsuarioDTO(
+            clienteMasActivo.getId(),
+            clienteMasActivo.getNombre(),
+            clienteMasActivo.getApellido(),
+            clienteMasActivo.getMail(),
+            clienteMasActivo.getCelular()
+        );
+        // Al usar toString() del record, vas a ver que el Rol y la Contraseña no existen en la salida
+        System.out.println("   DTO Generado para salida segura -> " + userDTO.toString());
+        System.out.println();        
+
+
+
+
+
     }
 }
