@@ -1,14 +1,24 @@
-# Carpetas de compilación (Maven, IntelliJ, Gradle)
+# 1. Carpetas de Compilación y Construcción
+.gradle/
+build/
 target/
 out/
 bin/
-build/
-
-# Configuraciones de IDEs (IntelliJ, Eclipse, NetBeans, VS Code)
+# 2. Configuraciones de Entornos (IDEs & IDX)
+# Project IDX y VS Code
+.idx/
+.vscode/
+# IntelliJ IDEA
 .idea/
 *.iml
 *.iws
 *.ipr
+# NetBeans, Eclipse y otros
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
 .classpath
 .project
 .settings/
@@ -16,28 +26,8 @@ build/
 .factorypath
 .springBeans
 .sts4-cache
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-.vscode/
-
-# Archivos del sistema y temporales
-HELP.md
+# 3. Archivos del Sistema y Temporales
+.DS_Store
+Thumbs.db
 .kotlin
-Thumbs.db
-.DS_Store
-
-
-# Carpetas de construcción de Gradle (Temporal)
-.gradle/
-build/
-
-# Archivos y carpetas del entorno de Project IDX / VS Code
-.idx/
-.vscode/
-
-# Archivos del sistema operativo
-.DS_Store
-Thumbs.db
+HELP.md
