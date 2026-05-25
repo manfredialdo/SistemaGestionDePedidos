@@ -9,35 +9,34 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("====== SIMULACIÓN CON REGLAS UML Y SETS ======\n");
 
-        // 1. INSTANCIAR CATEGORÍAS (3.c)
-        Categoria catPizzas = new Categoria(1L, "Pizzas", "Pizzas artesanales con masa fresca");
-        Categoria catHamburguesas = new Categoria(2L, "Hamburguesas", "Hamburguesas gourmet con ingredientes frescos");
-        Categoria catBebidas = new Categoria(3L, "Bebidas", "Gaseosas, jugos y bebidas frías");
-        Categoria catPostres = new Categoria(4L, "Postres", "Tortas, helados y dulces artesanales");
-        Categoria catEmpanadas = new Categoria(5L, "Empanadas", "Empanadas horneadas y fritas de distintos sabores");
-        Categoria catEnsaladas = new Categoria(6L, "Ensaladas", "Ensaladas frescas y saludables");
+        // 1. INSTANCIAR CATEGORÍAS
+        Categoria catPizzas = Categoria.builder().id(1L).nombre("Pizzas").descripcion("Pizzas artesanales con masa fresca").build();
+        Categoria catHamburguesas = Categoria.builder().id(2L).nombre("Hamburguesas").descripcion("Hamburguesas gourmet con ingredientes frescos").build();
+        Categoria catBebidas = Categoria.builder().id(3L).nombre("Bebidas").descripcion("Gaseosas, jugos y bebidas frías").build();
+        Categoria catPostres = Categoria.builder().id(4L).nombre("Postres").descripcion("Tortas, helados y dulces artesanales").build();
+        Categoria catEmpanadas = Categoria.builder().id(5L).nombre("Empanadas").descripcion("Empanadas horneadas y fritas de distintos sabores").build();
+        Categoria catEnsaladas = Categoria.builder().id(6L).nombre("Ensaladas").descripcion("Ensaladas frescas y saludables").build();
 
-        // 2. INSTANCIAR 20 PRODUCTOS
-        Producto p1 = new Producto(1L, "Pizza Muzzarella", 4500.0, "Pizza clásica con salsa de tomate y muzzarella derretida", 20, "pizza.jpg", true);
-        Producto p2 = new Producto(2L, "Pizza Napolitana", 5200.0, "Pizza con rodajas de tomate fresco, ajo y albahaca", 15, "pizza.jpg", true);
-        Producto p3 = new Producto(3L, "Pizza Especial 4 Quesos", 6800.0, "Muzzarella, provolone, roquefort y parmesano", 10, "pizza.jpg", true);
-        Producto p4 = new Producto(4L, "Hamburguesa Clásica", 3800.0, "Medallón de carne, lechuga, tomate, cebolla y mayo", 30, "pizza.jpg", true);
-        Producto p5 = new Producto(5L, "Hamburguesa BBQ Bacon", 5100.0, "Doble medallón, bacon crocante y salsa barbacoa ahumada", 25, "pizza.jpg", true);
-        Producto p7 = new Producto(7L, "Coca-Cola 500ml", 1200.0, "Gaseosa Coca-Cola fría, botella personal", 100, "pizza.jpg", true);
-        Producto p8 = new Producto(8L, "Jugo de Naranja Natural", 1800.0, "Jugo exprimido en el momento, vaso 400ml", 40, "pizza.jpg", true);
-        Producto p9 = new Producto(9L, "Agua Mineral 500ml", 800.0, "Agua mineral sin gas, botella personal", 150, "pizza.jpg", true);
-        Producto p10 = new Producto(10L, "Torta Rogel", 3500.0, "Torta rogel tradicional con dulce de leche y merengue", 12, "pizza.jpg", true);
-        Producto p11 = new Producto(11L, "Helado Artesanal 2 gustos", 2800.0, "Pote de 250g, elegí 2 gustos entre 12 opciones", 30, "pizza.jpg", true);
-        
-        Producto p13 = new Producto(13L, "Empanadas de Carne x6", 3000.0, "Empanadas criollas de carne cortada a cuchillo, horneadas", 50, "pizza.jpg", true);
-        Producto p14 = new Producto(14L, "Empanadas de Pollo x6", 2800.0, "Empanadas de pollo con morrón y verdeo, horneadas", 45, "pizza.jpg", true);
-        Producto p15 = new Producto(15L, "Empanadas de Jamón y Queso x6", 2500.0, "Empanadas fritas con jamón cocido y queso fundido", 60, "pizza.jpg", true);
-        Producto p16 = new Producto(16L, "Ensalada César", 3200.0, "Lechuga romana, crutones, parmesano y aderezo césar", 20, "pizza.jpg", true);
-        Producto p17 = new Producto(17L, "Ensalada Caprese", 2900.0, "Tomate, muzzarella fresca, albahaca y aceite de oliva", 18, "pizza.jpg", true);
-        Producto p18 = new Producto(18L, "Pizza Fugazzeta", 5500.0, "Pizza rellena de muzzarella con cebolla caramelizada", 10, "pizza.jpg", true);
-        Producto p20 = new Producto(20L, "Ensalada Mixta", 2400.0, "Lechuga, tomate, zanahoria rallada y aceitunas", 25, "pizza.jpg", true);
+        // 2. INSTANCIAR PRODUCTOS (Con tus campos reales)
+        Producto p1 = Producto.builder().id(1L).nombre("Pizza Muzzarella").precio(4500.0).descripcion("Pizza clásica con salsa de tomate y muzzarella derretida").stock(20).imagen("pizza.jpg").disponible(true).build();
+        Producto p2 = Producto.builder().id(2L).nombre("Pizza Napolitana").precio(5200.0).descripcion("Pizza con rodajas de tomate fresco, ajo y albahaca").stock(15).imagen("pizza.jpg").disponible(true).build();
+        Producto p3 = Producto.builder().id(3L).nombre("Pizza Especial 4 Quesos").precio(6800.0).descripcion("Muzzarella, provolone, roquefort y parmesano").stock(10).imagen("pizza.jpg").disponible(true).build();
+        Producto p4 = Producto.builder().id(4L).nombre("Hamburguesa Clásica").precio(3800.0).descripcion("Medallón de carne, lechuga, tomate, cebolla y mayo").stock(30).imagen("pizza.jpg").disponible(true).build();
+        Producto p5 = Producto.builder().id(5L).nombre("Hamburguesa BBQ Bacon").precio(5100.0).descripcion("Doble medallón, bacon crocante y salsa barbacoa ahumada").stock(25).imagen("pizza.jpg").disponible(true).build();
+        Producto p7 = Producto.builder().id(7L).nombre("Coca-Cola 500ml").precio(1200.0).descripcion("Gaseosa Coca-Cola fría, botella personal").stock(100).imagen("pizza.jpg").disponible(true).build();
+        Producto p8 = Producto.builder().id(8L).nombre("Jugo de Naranja Natural").precio(1800.0).descripcion("Jugo exprimido en el momento, vaso 400ml").stock(40).imagen("pizza.jpg").disponible(true).build();
+        Producto p9 = Producto.builder().id(9L).nombre("Agua Mineral 500ml").precio(800.0).descripcion("Agua mineral sin gas, botella personal").stock(150).imagen("pizza.jpg").disponible(true).build();
+        Producto p10 = Producto.builder().id(10L).nombre("Torta Rogel").precio(3500.0).descripcion("Torta rogel tradicional con dulce de leche y merengue").stock(12).imagen("pizza.jpg").disponible(true).build();
+        Producto p11 = Producto.builder().id(11L).nombre("Helado Artesanal 2 gustos").precio(2800.0).descripcion("Pote de 250g, elegí 2 gustos entre 12 opciones").stock(30).imagen("pizza.jpg").disponible(true).build();
+        Producto p13 = Producto.builder().id(13L).nombre("Empanadas de Carne x6").precio(3000.0).descripcion("Empanadas criollas de carne cortada a cuchillo, horneadas").stock(50).imagen("pizza.jpg").disponible(true).build();
+        Producto p14 = Producto.builder().id(14L).nombre("Empanadas de Pollo x6").precio(2800.0).descripcion("Empanadas de pollo con morrón y verdeo, horneadas").stock(45).imagen("pizza.jpg").disponible(true).build();
+        Producto p15 = Producto.builder().id(15L).nombre("Empanadas de Jamón y Queso x6").precio(2500.0).descripcion("Empanadas fritas con jamón cocido y queso fundido").stock(60).imagen("pizza.jpg").disponible(true).build();
+        Producto p16 = Producto.builder().id(16L).nombre("Ensalada César").precio(3200.0).descripcion("Lechuga romana, crutones, parmesano y aderezo césar").stock(20).imagen("pizza.jpg").disponible(true).build();
+        Producto p17 = Producto.builder().id(17L).nombre("Ensalada Caprese").precio(2900.0).descripcion("Tomate, muzzarella fresca, albahaca y aceite de oliva").stock(18).imagen("pizza.jpg").disponible(true).build();
+        Producto p18 = Producto.builder().id(18L).nombre("Pizza Fugazzeta").precio(5500.0).descripcion("Pizza rellena de muzzarella con cebolla caramelizada").stock(10).imagen("pizza.jpg").disponible(true).build();
+        Producto p20 = Producto.builder().id(20L).nombre("Ensalada Mixta").precio(2400.0).descripcion("Lechuga, tomate, zanahoria rallada y aceitunas").stock(25).imagen("pizza.jpg").disponible(true).build();
 
-        // Agregación (◊→): Vinculamos los productos a sus categorías correspondientes
+        // Agregación (◊→)
         catPizzas.agregarProducto(p1);
         catPizzas.agregarProducto(p2);
         catPizzas.agregarProducto(p3);
@@ -56,27 +55,25 @@ public class Main {
         catPizzas.agregarProducto(p18);
         catEnsaladas.agregarProducto(p20);
 
-        // 3. INSTANCIAR 2 USUARIOS (Requisito 3.a)
-        Usuario user1 = new Usuario(1L, "Aldo", "Manfredi", "aldo@mail.com", "11223344", "pass123", Rol.USUARIO);
-        Usuario user2 = new Usuario(2L, "María", "Gómez", "maria@mail.com", "55667788", "admin456", Rol.ADMIN);
+        // 3. INSTANCIAR USUARIOS
+        Usuario user1 = Usuario.builder().id(1L).nombre("Aldo").apellido("Manfredi").mail("aldo@mail.com").celular("11223344").contraseña("pass123").rol(Rol.USUARIO).build();
+        Usuario user2 = Usuario.builder().id(2L).nombre("María").apellido("Gómez").mail("maria@mail.com").celular("55667788").contraseña("admin456").rol(Rol.ADMIN).build();
 
-        // 4. INSTANCIAR 3 PEDIDOS Y SUS DETALLES INTERNOS (Requisito 3.b - Composición Estricta ♦→)
-        Pedido ped1 = new Pedido(501L, LocalDate.now(), Estado.PENDIENTE, FormaPago.TARJETA);
+        // 4. INSTANCIAR 3 PEDIDOS usando el Builder correcto
+        Pedido ped1 = Pedido.builder().id(501L).fecha(LocalDate.now()).estado(Estado.PENDIENTE).formaPago(FormaPago.TARJETA).total(0.0).build();
         ped1.addDetallePedido(1, p1); 
         ped1.addDetallePedido(2, p3);
 
-        @SuppressWarnings("unused")
-        Pedido ped2 = new Pedido(502L, LocalDate.now(), Estado.CONFIRMADO, FormaPago.TRANSFERENCIA);
-        ped1.addDetallePedido(1, p2);
-        ped1.addDetallePedido(3, p7);
+        Pedido ped2 = Pedido.builder().id(502L).fecha(LocalDate.now()).estado(Estado.CONFIRMADO).formaPago(FormaPago.TRANSFERENCIA).total(0.0).build();
+        ped2.addDetallePedido(1, p2);
+        ped2.addDetallePedido(3, p7);
 
-        Pedido ped3 = new Pedido(503L, LocalDate.now(), Estado.TERMINADO, FormaPago.EFECTIVO);
+        Pedido ped3 = Pedido.builder().id(503L).fecha(LocalDate.now()).estado(Estado.TERMINADO).formaPago(FormaPago.EFECTIVO).total(0.0).build();
         ped3.addDetallePedido(1, p4);
         ped3.addDetallePedido(1, p10);
-
-        // Sincronización Bidireccional de Asociaciones
+        
         user1.agregarPedido(ped1);
-        user1.agregarPedido(ped1);
+        user1.agregarPedido(ped2);
         user2.agregarPedido(ped3);
 
         // ================= PRESENTACIÓN DE RESULTADOS POR CONSOLA =================
@@ -86,9 +83,9 @@ public class Main {
         System.out.println("[B] LISTADO COMPLETO DE PRODUCTOS POR CATEGORÍA:");
         Set<Categoria> conjuntoCategorias = Set.of(catPizzas, catHamburguesas, catBebidas, catPostres, catEmpanadas, catEnsaladas);
         for (Categoria cat : conjuntoCategorias) {
-            System.out.println("   *** " + cat);
+            System.out.println("   *** " + cat.getNombre());
             for (Producto prod : cat.getProductos()) {
-                System.out.println("      -> " + prod);
+                System.out.println("      -> " + prod.getNombre());
             }
         }
         System.out.println();
@@ -111,12 +108,12 @@ public class Main {
         System.out.println();
 
         System.out.println("[D] PRUEBA DE IDENTIDAD DE OBJETOS Y UNICIDAD EN SETS:");
-        // Creamos una pizza clon con el mismo ID que p1 (1L) para probar el Set
-        Producto clonP1 = new Producto(1L, "Pizza Muzzarella clonada", 4500.0);
+        // Uso de la sobrecarga por defecto del builder
+        Producto clonP1 = Producto.builder().id(1L).nombre("Pizza Muzzarella clonada").precio(4500.0).build();
         System.out.println("   ¿p1.equals(clonP1) basado en ID?: " + p1.equals(clonP1));
         
         int tamañoAntes = catPizzas.getProductos().size();
-        catPizzas.agregarProducto(clonP1); // Intento de inyección de duplicado gastronómico
+        catPizzas.agregarProducto(clonP1); 
         int tamañoDespues = catPizzas.getProductos().size();
         
         System.out.println("   Elementos en Set iniciales (Pizzas): " + tamañoAntes + " | Elementos tras intentar duplicar: " + tamañoDespues);

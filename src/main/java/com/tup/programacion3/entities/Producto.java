@@ -1,74 +1,34 @@
 package com.tup.programacion3.entities;
 
-import java.util.Objects;
+// 1. Importamos las herramientas de Lombok
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
+import lombok.Builder;
 
+// 2. Añadimos las anotaciones de Lombok
+@Getter 
+@Setter
+@NoArgsConstructor 
+@SuperBuilder      
+@EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true) 
+@ToString(callSuper = true)
 public class Producto extends Base {
     private String nombre;
     private Double precio;
-    private String descripcion;
-    private int stock;
-    private String imagen;
-    private Boolean disponible;
-
-    public Producto() {
-        super();
-    }
-
-    // Sobrecarga corta útil para prototipos rápidos
-    public Producto(Long id, String nombre, Double precio) {
-        super(id);
-        this.nombre = nombre;
-        this.precio = precio;
-        this.descripcion = "Sin descripción";
-        this.stock = 10;
-        this.imagen = "default.png";
-        this.disponible = true;
-    }
-
-    public Producto(Long id, String nombre, Double precio, String descripcion, int stock, String imagen, Boolean disponible) {
-        super(id);
-        this.nombre = nombre;
-        this.precio = precio;
-        this.descripcion = descripcion;
-        this.stock = stock;
-        this.imagen = imagen;
-        this.disponible = disponible;
-    }
-
-    public String getNombre() { return nombre; }
-    public void setNombre(String nombre) { this.nombre = nombre; }
-    public Double getPrecio() { return precio; }
-    public void setPrecio(Double precio) { this.precio = precio; }
-    public String getDescripcion() { return descripcion; }
-    public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
-    public int getStock() { return stock; }
-    public void setStock(int stock) { this.stock = stock; }
-    public String getImagen() { return imagen; }
-    public void setImagen(String imagen) { this.imagen = imagen; }
-    public Boolean getDisponible() { return disponible; }
-    public void setDisponible(Boolean disponible) { this.disponible = disponible; }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Producto producto = (Producto) o;
-        if (this.id != null && producto.id != null) {
-            return Objects.equals(this.id, producto.id);
-        }
-        return Objects.equals(nombre, producto.nombre);
-    }
-
-    @Override
-    public int hashCode() {
-        if (this.id != null) {
-            return Objects.hash(this.id);
-        }
-        return Objects.hash(nombre);
-    }
-
-    @Override
-    public String toString() {
-        return "Producto[ID=" + id + ", Nombre='" + nombre + "', Precio=$" + precio + ", Stock=" + stock + "]";
-    }
+    
+    @Builder.Default
+    private String descripcion = "Sin descripción";
+    
+    @Builder.Default
+    private int stock = 10;
+    
+    @Builder.Default
+    private String imagen = "default.png";
+    
+    @Builder.Default
+    private Boolean disponible = true;
 }

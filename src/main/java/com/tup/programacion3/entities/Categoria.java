@@ -1,26 +1,32 @@
 package com.tup.programacion3.entities;
 
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
+// 1. Importamos las herramientas de Lombok que pide el TP
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
+
+// 2. Colocamos las anotaciones
+@Getter 
+@Setter
+@NoArgsConstructor 
+@SuperBuilder      
+@EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true) 
+@ToString(callSuper = true)
 public class Categoria extends Base {
     private String nombre;
     private String descripcion;
     
-    // AGREGACIÓN (◊→): Productos con vida propia asociados a la categoría
+    // Usamos @Builder.Default para que al usar el Builder, el HashSet no se cree como null
+    @lombok.Builder.Default
     private Set<Producto> productos = new HashSet<>();
 
-    public Categoria() {
-        super();
-    }
-
-    public Categoria(Long id, String nombre, String descripcion) {
-        super(id);
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-    }
-
+    // 3. Mantenemos tus métodos manuales de lógica de negocio
     public void agregarProducto(Producto producto) {
         if (producto != null) {
             this.productos.add(producto);
@@ -29,29 +35,5 @@ public class Categoria extends Base {
 
     public boolean eliminarProducto(Producto producto) {
         return this.productos.remove(producto);
-    }
-
-    public String getNombre() { return nombre; }
-    public void setNombre(String nombre) { this.nombre = nombre; }
-    public String getDescripcion() { return descripcion; }
-    public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
-    public Set<Producto> getProductos() { return productos; }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Categoria categoria = (Categoria) o;
-        return Objects.equals(id, categoria.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
-
-    @Override
-    public String toString() {
-        return "Categoria[ID=" + id + ", Nombre='" + nombre + "', TotalProductos=" + productos.size() + "]";
     }
 }

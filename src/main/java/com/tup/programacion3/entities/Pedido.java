@@ -7,29 +7,32 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+// 1. Importamos las herramientas de Lombok
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
+import lombok.Builder;
+
+// 2. Agregamos las anotaciones de la arquitectura de Lombok
+@Getter 
+@Setter
+@NoArgsConstructor 
+@SuperBuilder      
+@EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true) 
+@ToString(callSuper = true)
 public class Pedido extends Base implements Calculable {
+    
     private LocalDate fecha;
     private Estado estado;
     private Double total;
     private FormaPago formaPago;
     
-    // COMPOSICIÓN (♦→): El Pedido instancia e incorpora sus detalles internamente
+    // Con @Builder.Default nos aseguramos que el Set no sea null al usar el Builder
+    @Builder.Default
     private Set<DetallePedido> detalles = new HashSet<>();
-
-    public Pedido() {
-        super();
-        this.total = 0.0;
-        this.fecha = LocalDate.now();
-        this.estado = Estado.PENDIENTE;
-    }
-
-    public Pedido(Long id, LocalDate fecha, Estado estado, FormaPago formaPago) {
-        super(id);
-        this.fecha = fecha;
-        this.estado = estado;
-        this.formaPago = formaPago;
-        this.total = 0.0;
-    }
 
     @Override
     public void calcularTotal() {
@@ -64,33 +67,5 @@ public class Pedido extends Base implements Calculable {
             this.detalles.remove(objetivo);
             calcularTotal();
         }
-    }
-
-    public LocalDate getFecha() { return fecha; }
-    public void setFecha(LocalDate fecha) { this.fecha = fecha; }
-    public Estado getEstado() { return estado; }
-    public void setEstado(Estado estado) { this.estado = estado; }
-    public Double getTotal() { return total; }
-    public void setTotal(Double total) { this.total = total; }
-    public Set<DetallePedido> getDetalles() { return detalles; }
-    public FormaPago getFormaPago() { return formaPago; }
-    public void setFormaPago(FormaPago formaPago) { this.formaPago = formaPago; }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Pedido pedido = (Pedido) o;
-        return Objects.equals(id, pedido.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
-
-    @Override
-    public String toString() {
-        return "Pedido[ID=" + id + ", Fecha=" + fecha + ", Estado=" + estado + ", FormaPago=" + formaPago + ", Total=$" + total + ", CantidadItems=" + detalles.size() + "]";
     }
 }
