@@ -17,7 +17,7 @@ public class Main {
         Categoria catEmpanadas = Categoria.builder().id(5L).nombre("Empanadas").descripcion("Empanadas horneadas y fritas de distintos sabores").build();
         Categoria catEnsaladas = Categoria.builder().id(6L).nombre("Ensaladas").descripcion("Ensaladas frescas y saludables").build();
 
-        // 2. INSTANCIAR PRODUCTOS (Con tus campos reales)
+        // 2. INSTANCIAR PRODUCTOS
         Producto p1 = Producto.builder().id(1L).nombre("Pizza Muzzarella").precio(4500.0).descripcion("Pizza clásica con salsa de tomate y muzzarella derretida").stock(20).imagen("pizza.jpg").disponible(true).build();
         Producto p2 = Producto.builder().id(2L).nombre("Pizza Napolitana").precio(5200.0).descripcion("Pizza con rodajas de tomate fresco, ajo y albahaca").stock(15).imagen("pizza.jpg").disponible(true).build();
         Producto p3 = Producto.builder().id(3L).nombre("Pizza Especial 4 Quesos").precio(6800.0).descripcion("Muzzarella, provolone, roquefort y parmesano").stock(10).imagen("pizza.jpg").disponible(true).build();
@@ -59,7 +59,7 @@ public class Main {
         Usuario user1 = Usuario.builder().id(1L).nombre("Aldo").apellido("Manfredi").mail("aldo@mail.com").celular("11223344").contraseña("pass123").rol(Rol.USUARIO).build();
         Usuario user2 = Usuario.builder().id(2L).nombre("María").apellido("Gómez").mail("maria@mail.com").celular("55667788").contraseña("admin456").rol(Rol.ADMIN).build();
 
-        // 4. INSTANCIAR 3 PEDIDOS usando el Builder correcto
+        // 4. INSTANCIAR 3 PEDIDOS
         Pedido ped1 = Pedido.builder().id(501L).fecha(LocalDate.now()).estado(Estado.PENDIENTE).formaPago(FormaPago.TARJETA).total(0.0).build();
         ped1.addDetallePedido(1, p1); 
         ped1.addDetallePedido(2, p3);
@@ -78,19 +78,20 @@ public class Main {
 
         // ================= PRESENTACIÓN DE RESULTADOS POR CONSOLA =================
         System.out.println("[A] VERIFICACIÓN DE UN PRODUCTO INDIVIDUAL (toString):");
-        System.out.println("   " + p1 + "\n");
+        System.out.println("   " + p1.toString() + "\n");
 
-        System.out.println("[B] LISTADO COMPLETO DE PRODUCTOS POR CATEGORÍA:");
+        System.out.println("[B] LISTADO COMPLETO DE PRODUCTOS CARGADOS (toString por Categoría):");
         Set<Categoria> conjuntoCategorias = Set.of(catPizzas, catHamburguesas, catBebidas, catPostres, catEmpanadas, catEnsaladas);
         for (Categoria cat : conjuntoCategorias) {
             System.out.println("   *** " + cat.getNombre());
             for (Producto prod : cat.getProductos()) {
-                System.out.println("      -> " + prod.getNombre());
+                // Ajustado para cumplir estrictamente con el requerimiento de usar toString()
+                System.out.println("      -> " + prod.toString());
             }
         }
         System.out.println();
 
-        System.out.println("[C] HISTORIAL COMPLETO DEL USUARIO MAS ACTIVO:");
+        System.out.println("[C] HISTORIAL COMPLETO DEL USUARIO MAS ACTIVO (toString):");
         Set<Usuario> conjuntoUsuarios = Set.of(user1, user2);
         Usuario clienteMasActivo = user1;
         for (Usuario u : conjuntoUsuarios) {
@@ -100,15 +101,14 @@ public class Main {
         }
         System.out.println("   Cliente: " + clienteMasActivo.getNombre() + " " + clienteMasActivo.getApellido());
         for (Pedido p : clienteMasActivo.getPedidos()) {
-            System.out.println("      " + p);
+            System.out.println("      " + p.toString());
             for (DetallePedido dp : p.getDetalles()) {
-                System.out.println("         " + dp);
+                System.out.println("         " + dp.toString());
             }
         }
         System.out.println();
 
         System.out.println("[D] PRUEBA DE IDENTIDAD DE OBJETOS Y UNICIDAD EN SETS:");
-        // Uso de la sobrecarga por defecto del builder
         Producto clonP1 = Producto.builder().id(1L).nombre("Pizza Muzzarella clonada").precio(4500.0).build();
         System.out.println("   ¿p1.equals(clonP1) basado en ID?: " + p1.equals(clonP1));
         
