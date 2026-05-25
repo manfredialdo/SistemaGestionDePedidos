@@ -6,7 +6,6 @@ out/
 bin/
 # 2. Configuraciones de Entornos (IDEs & IDX)
 # Project IDX y VS Code
-.idx/
 .vscode/
 # IntelliJ IDEA
 .idea/
