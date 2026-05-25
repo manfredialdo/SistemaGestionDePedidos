@@ -148,7 +148,7 @@ sdk install maven
 
 # 3. Compilar y arrancar la aplicación gastronómica
 mvn clean compile exec:java -Dexec.mainClass="com.tup.programacion3.Main"
-```text
+
 1. Para el desarrollo de este trabajo práctico se deberá tomar como base el modelo de clases desarrollado en la Unidad 5. A diferencia del trabajo anterior, en esta instancia el proyecto deberá configurarse y desarrollarse utilizando Gradle como herramienta de gestión de dependencias y construcción. Asimismo, se deberá incorporar la librería Lombok, la cual será utilizada para reemplazar código repetitivo mediante anotaciones.
 2. Insertar anotaciones Lombok, se deberán utilizar al menos las siguientes anotaciones:
 a. Getter/Setter
@@ -157,11 +157,6 @@ c. EqualsAndHashCode
 d. Builder / SuperBuilder
 e. AllArgsConstructor
 f. NoArgsConstructor
-
-2
-
-TECNICATURA UNIVERSITARIA
-EN PROGRAMACIÓN
 
 3. En el método main se deberán instanciar utilizando patron builder
 a. 2 Usuarios
