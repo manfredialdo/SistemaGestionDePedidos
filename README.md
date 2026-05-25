@@ -3,6 +3,7 @@
 
 ### estructura del tp
 
+```text
 TP-LOMBOK-DTO
 ├── src
 │   └── main
@@ -26,7 +27,8 @@ TP-LOMBOK-DTO
 │       │           └── Main.java
 │       └── resources
 ├── build.gradle
-└── settings.gradle
+└── settings.gradle```
+
 
 
 
