@@ -148,7 +148,6 @@ sdk install maven
 
 # 3. Compilar y arrancar la aplicación gastronómica
 mvn clean compile exec:java -Dexec.mainClass="com.tup.programacion3.Main"
-
 <h1>Consignas</h1>
 
 <ol>
@@ -156,21 +155,21 @@ mvn clean compile exec:java -Dexec.mainClass="com.tup.programacion3.Main"
     
     <li>Insertar anotaciones <strong>Lombok</strong>, se deberán utilizar al menos las siguientes anotaciones:
         <ul>
-            <li><code>Getter/Setter</code></li>
-            <li><code>ToString</code></li>
-            <li><code>EqualsAndHashCode</code></li>
-            <li><code>Builder / SuperBuilder</code></li>
-            <li><code>AllArgsConstructor</code></li>
-            <li><code>NoArgsConstructor</code></li>
+            <li><code>&lt;li&gt;&lt;code&gt;Getter/Setter&lt;/code&gt;&lt;/li&gt;</code></li>
+            <li><code>&lt;li&gt;&lt;code&gt;ToString&lt;/code&gt;&lt;/li&gt;</code></li>
+            <li><code>&lt;li&gt;&lt;code&gt;EqualsAndHashCode&lt;/code&gt;&lt;/li&gt;</code></li>
+            <li><code>&lt;li&gt;&lt;code&gt;Builder / SuperBuilder&lt;/code&gt;&lt;/li&gt;</code></li>
+            <li><code>&lt;li&gt;&lt;code&gt;AllArgsConstructor&lt;/code&gt;&lt;/li&gt;</code></li>
+            <li><code>&lt;li&gt;&lt;code&gt;NoArgsConstructor&lt;/code&gt;&lt;/li&gt;</code></li>
         </ul>
     </li>
     
     <li>En el método <code>main</code> se deberán instanciar utilizando patrón <strong>Builder</strong>:
         <ul>
-            <li><strong>2</strong> Usuarios</li>
-            <li><strong>3</strong> Pedidos (al menos 2 detalles pedido por cada uno)</li>
-            <li><strong>3</strong> Categorías</li>
-            <li><strong>10</strong> productos</li>
+            <li><code>&lt;li&gt;&lt;strong&gt;2&lt;/strong&gt; Usuarios&lt;/li&gt;</code></li>
+            <li><code>&lt;li&gt;&lt;strong&gt;3&lt;/strong&gt; Pedidos (al menos 2 detalles pedido por cada uno)&lt;/li&gt;</code></li>
+            <li><code>&lt;li&gt;&lt;strong&gt;3&lt;/strong&gt; Categorías&lt;/li&gt;</code></li>
+            <li><code>&lt;li&gt;&lt;strong&gt;10&lt;/strong&gt; productos&lt;/li&gt;</code></li>
         </ul>
     </li>
     
@@ -180,8 +179,8 @@ mvn clean compile exec:java -Dexec.mainClass="com.tup.programacion3.Main"
     
     <li>Crear un nuevo paquete llamado <strong>DTOs</strong> y, dentro de él, una clase record llamada <code>UsuarioDTO</code>, que contendrá la misma información que la clase Usuario, evitando mostrar información sensible. Se deberán ocultar los siguientes atributos:
         <ul>
-            <li>Rol</li>
-            <li>Contraseña</li>
+            <li><code>&lt;li&gt;Rol&lt;/li&gt;</code></li>
+            <li><code>&lt;li&gt;Contraseña&lt;/li&gt;</code></li>
         </ul>
     </li>
 </ol>
