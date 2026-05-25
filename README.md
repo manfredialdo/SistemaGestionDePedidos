@@ -148,39 +148,28 @@ sdk install maven
 
 # 3. Compilar y arrancar la aplicación gastronómica
 mvn clean compile exec:java -Dexec.mainClass="com.tup.programacion3.Main"
-<h1>Consignas</h1>
+```text
+1. Para el desarrollo de este trabajo práctico se deberá tomar como base el modelo de clases desarrollado en la Unidad 5. A diferencia del trabajo anterior, en esta instancia el proyecto deberá configurarse y desarrollarse utilizando Gradle como herramienta de gestión de dependencias y construcción. Asimismo, se deberá incorporar la librería Lombok, la cual será utilizada para reemplazar código repetitivo mediante anotaciones.
+2. Insertar anotaciones Lombok, se deberán utilizar al menos las siguientes anotaciones:
+a. Getter/Setter
+b. ToString
+c. EqualsAndHashCode
+d. Builder / SuperBuilder
+e. AllArgsConstructor
+f. NoArgsConstructor
 
-<ol>
-    <li>Para el desarrollo de este trabajo práctico se deberá tomar como base el modelo de clases desarrollado en la Unidad 5. A diferencia del trabajo anterior, en esta instancia el proyecto deberá configurarse y desarrollarse utilizando <strong>Gradle</strong> como herramienta de gestión de dependencias y construcción. Asimismo, se deberá incorporar la librería <strong>Lombok</strong>, la cual será utilizada para reemplazar código repetitivo mediante anotaciones.</li>
-    
-    <li>Insertar anotaciones <strong>Lombok</strong>, se deberán utilizar al menos las siguientes anotaciones:
-        <ul>
-            <li><code>&lt;li&gt;&lt;code&gt;Getter/Setter&lt;/code&gt;&lt;/li&gt;</code></li>
-            <li><code>&lt;li&gt;&lt;code&gt;ToString&lt;/code&gt;&lt;/li&gt;</code></li>
-            <li><code>&lt;li&gt;&lt;code&gt;EqualsAndHashCode&lt;/code&gt;&lt;/li&gt;</code></li>
-            <li><code>&lt;li&gt;&lt;code&gt;Builder / SuperBuilder&lt;/code&gt;&lt;/li&gt;</code></li>
-            <li><code>&lt;li&gt;&lt;code&gt;AllArgsConstructor&lt;/code&gt;&lt;/li&gt;</code></li>
-            <li><code>&lt;li&gt;&lt;code&gt;NoArgsConstructor&lt;/code&gt;&lt;/li&gt;</code></li>
-        </ul>
-    </li>
-    
-    <li>En el método <code>main</code> se deberán instanciar utilizando patrón <strong>Builder</strong>:
-        <ul>
-            <li><code>&lt;li&gt;&lt;strong&gt;2&lt;/strong&gt; Usuarios&lt;/li&gt;</code></li>
-            <li><code>&lt;li&gt;&lt;strong&gt;3&lt;/strong&gt; Pedidos (al menos 2 detalles pedido por cada uno)&lt;/li&gt;</code></li>
-            <li><code>&lt;li&gt;&lt;strong&gt;3&lt;/strong&gt; Categorías&lt;/li&gt;</code></li>
-            <li><code>&lt;li&gt;&lt;strong&gt;10&lt;/strong&gt; productos&lt;/li&gt;</code></li>
-        </ul>
-    </li>
-    
-    <li>En la clase <code>Main</code> se deberán tener las instancias solicitadas en el punto anterior y se deberá utilizar el método <code>toString</code> para mostrar por consola un producto, el listado de productos cargados y los pedidos del usuario que posea la mayor cantidad de pedidos.</li>
-    
-    <li>Instanciar un nuevo producto donde el/los campos utilizados en el método <code>equals</code> sean iguales a los de otro producto existente. Luego, comparar dicha instancia con todos los elementos de la colección de productos y mostrar los resultados por pantalla.</li>
-    
-    <li>Crear un nuevo paquete llamado <strong>DTOs</strong> y, dentro de él, una clase record llamada <code>UsuarioDTO</code>, que contendrá la misma información que la clase Usuario, evitando mostrar información sensible. Se deberán ocultar los siguientes atributos:
-        <ul>
-            <li><code>&lt;li&gt;Rol&lt;/li&gt;</code></li>
-            <li><code>&lt;li&gt;Contraseña&lt;/li&gt;</code></li>
-        </ul>
-    </li>
-</ol>
+2
+
+TECNICATURA UNIVERSITARIA
+EN PROGRAMACIÓN
+
+3. En el método main se deberán instanciar utilizando patron builder
+a. 2 Usuarios
+b. 3 Pedidos (al menos 2 detalles pedido por cada uno)
+c. 3 Categorías
+d. 10 productos
+4. En la clase Main se deberán tener las instancias solicitadas en el punto anterior y se deberá utilizar el método toString para mostrar por consola un producto, el listado de productos cargados y los pedidos del usuario que posea la mayor cantidad de pedidos.
+5. Instanciar un nuevo producto donde el/los campos utilizados en el método equals sean iguales a los de otro producto existente. Luego, comparar dicha instancia con todos los elementos de la colección de productos y mostrar los resultados por pantalla.
+6. Crear un nuevo paquete llamado DTOs y, dentro de él, una clase record llamada UsuarioDTO, que contendrá la misma información que la clase Usuario, evitando mostrar información sensible. Se deberán ocultar los siguientes atributos:
+a. Rol
+b. Contraseña
