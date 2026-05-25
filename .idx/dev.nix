@@ -5,26 +5,25 @@
   channel = "stable-23.11"; # or "unstable"
   # Use https://search.nixos.org/packages to find packages
   packages = [
-    pkgs.jdk21          # Java 21 de la cátedra
-    pkgs.maven          # Gestor de dependencias
+    pkgs.jdk21          # Java 21 
+    pkgs.gradle         # Gestor de dependencias
   ];
   # Sets environment variables in the workspace
   env = {};
   idx = {
     # Search for the extensions you want on https://open-vsx.org/ and use "publisher.id"
     extensions = [
-      "vscjava.vscode-java-pack"      # El motor esencial de Java
-      "k--kato.intellij-idea-keybindings" # <--- ATADOS DE TECLADO DE INTELLIJ
-      "mguenther.intellij-darcula"    # <--- TEMA VISUAL DARCULA (Opcional, para que se vea igual)
+      "vscjava.vscode-java-pack"                      # El motor esencial de Java
+      "k--kato.intellij-idea-keybindings"             # <--- ATADOS INTELLIJ
+      "mguenther.intellij-darcula"                    # <--- TEMA VISUAL DARCULA (Opcional, para que se vea igual)
+      "GabrielBB.vscode-lombok"                       # <--- EXTENSIÓN CLAVE PARA LOMBOK EN VS CODE / IDX
     ];
     workspace = {
-      # Runs when a workspace is first created with this `dev.nix` file
       onCreate = {
-        install = "mvn clean install -DskipTests";
+        install = "gradle build -x test"; 
       };
-      # Runs when a workspace is (re)started
       onStart = {
-        build = "mvn compile";
+        build = "gradle compileJava";
       };
     };
   };

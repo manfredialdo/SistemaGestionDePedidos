@@ -1,0 +1,29 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.tup'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral() // Indica a Gradle dónde buscar las librerías (Lombok, etc)
+}
+
+dependencies {
+    // Configuración de Lombok requerida para compilar y usar en el código
+    compileOnly 'org.projectlombok:lombok:1.18.32'
+    annotationProcessor 'org.projectlombok:lombok:1.18.32'
+
+    // Para los tests 
+    testCompileOnly 'org.projectlombok:lombok:1.18.32'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.32'
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
