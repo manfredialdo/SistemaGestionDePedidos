@@ -118,5 +118,36 @@ public class Main {
         
         System.out.println("   Elementos en Set iniciales (Pizzas): " + tamañoAntes + " | Elementos tras intentar duplicar: " + tamañoDespues);
         System.out.println("   El Set bloqueó el clon utilizando el contrato equals/hashCode.");
+
+
+
+
+
+        // CONSIGNA 5
+        // ====================================================================================
+        System.out.println("[D] PRUEBA DE IDENTIDAD, COMPARACIÓN INDIVIDUAL Y UNICIDAD EN SETS:");
+                
+        // 1. Usamos la instancia clonada que ya declaramos arriba (no le ponemos "Producto" adelante)
+        clonP1 = Producto.builder().id(1L).nombre("Pizza Muzzarella clonada").precio(4500.0).build();
+        System.out.println("   -> Producto Clon Creado: " + clonP1 + "\n");
+
+        // 2. Juntamos todos los productos existentes en un conjunto para compararlos
+        Set<Producto> todosLosProductos = Set.of(p1, p2, p3, p4, p5, p7, p8, p9, p10, p11, p13, p14, p15, p16, p17, p18, p20);
+
+        System.out.println("   === Comparando el Clon contra toda la colección de productos ===");
+        for (Producto prod : todosLosProductos) {
+            boolean sonIguales = clonP1.equals(prod);
+            System.out.println("   ¿Clon(ID=" + clonP1.getId() + ") es igual a " + prod.getNombre() + "(ID=" + prod.getId() + ")?: " + sonIguales);
+        }
+        System.out.println();
+
+        // 3. Prueba de fuego: intentar meterlo en el Set de la categoría (reutilizamos las variables sin el "int")
+        tamañoAntes = catPizzas.getProductos().size();
+        catPizzas.agregarProducto(clonP1); 
+        tamañoDespues = catPizzas.getProductos().size();
+
+        System.out.println("   === Verificación de bloqueo en la Categoría ===");
+        System.out.println("   Elementos en Set iniciales (Pizzas): " + tamañoAntes + " | Elementos tras intentar duplicar: " + tamañoDespues);
+        System.out.println("   Resultado: El Set bloqueó el clon utilizando el contrato equals/hashCode.");
     }
 }
