@@ -20,8 +20,14 @@ import lombok.experimental.SuperBuilder;
 @ToString(callSuper = true)
 public class Categoria extends Base {
     private String nombre;
-    private String descripcion;
-    
+    private String descripcion;   
+
+
+    @EqualsAndHashCode.Include
+    public Long getId() {
+        return super.getId();
+    }
+
     // Usamos @Builder.Default para que al usar el Builder, el HashSet no se cree como null
     @lombok.Builder.Default
     private Set<Producto> productos = new HashSet<>();

@@ -23,6 +23,11 @@ public class Usuario extends Base {
     @lombok.Builder.Default
     private Set<Pedido> pedidos = new HashSet<>();
 
+    @EqualsAndHashCode.Include
+    public Long getId() {
+        return super.getId();
+    }
+    
     public void agregarPedido(Pedido pedido) {
         if (pedido != null) {
             this.pedidos.add(pedido);

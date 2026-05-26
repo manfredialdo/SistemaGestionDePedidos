@@ -4,7 +4,6 @@ import com.tup.programacion3.entities.*;
 import com.tup.programacion3.enums.*;
 import java.time.LocalDate;
 import java.util.Set;
-
 import com.tup.programacion3.dtos.UsuarioDTO;
 
 public class Main {
@@ -29,7 +28,7 @@ public class Main {
         Producto p8 = Producto.builder().id(8L).nombre("Jugo de Naranja Natural").precio(1800.0).descripcion("Jugo exprimido en el momento, vaso 400ml").stock(40).imagen("pizza.jpg").disponible(true).build();
         Producto p9 = Producto.builder().id(9L).nombre("Agua Mineral 500ml").precio(800.0).descripcion("Agua mineral sin gas, botella personal").stock(150).imagen("pizza.jpg").disponible(true).build();
         Producto p10 = Producto.builder().id(10L).nombre("Torta Rogel").precio(3500.0).descripcion("Torta rogel tradicional con dulce de leche y merengue").stock(12).imagen("pizza.jpg").disponible(true).build();
-        Producto p11 = Producto.builder().id(11L).nombre("Helado Artesanal 2 gustos").precio(2800.0).descripcion("Pote de 250g, elegí 2 gustos entre 12 opciones").stock(30).imagen("pizza.jpg").disponible(true).build();
+        Producto p11 = Producto.builder().id(11L).nombre("Helado Artesanal 2 gustos").precio(2800.0).descripcion("Pote de 250g, elegí 2 gustos entre 12 options").stock(30).imagen("pizza.jpg").disponible(true).build();
         Producto p13 = Producto.builder().id(13L).nombre("Empanadas de Carne x6").precio(3000.0).descripcion("Empanadas criollas de carne cortada a cuchillo, horneadas").stock(50).imagen("pizza.jpg").disponible(true).build();
         Producto p14 = Producto.builder().id(14L).nombre("Empanadas de Pollo x6").precio(2800.0).descripcion("Empanadas de pollo con morrón y verdeo, horneadas").stock(45).imagen("pizza.jpg").disponible(true).build();
         Producto p15 = Producto.builder().id(15L).nombre("Empanadas de Jamón y Queso x6").precio(2500.0).descripcion("Empanadas fritas con jamón cocido y queso fundido").stock(60).imagen("pizza.jpg").disponible(true).build();
@@ -38,7 +37,7 @@ public class Main {
         Producto p18 = Producto.builder().id(18L).nombre("Pizza Fugazzeta").precio(5500.0).descripcion("Pizza rellena de muzzarella con cebolla caramelizada").stock(10).imagen("pizza.jpg").disponible(true).build();
         Producto p20 = Producto.builder().id(20L).nombre("Ensalada Mixta").precio(2400.0).descripcion("Lechuga, tomate, zanahoria rallada y aceitunas").stock(25).imagen("pizza.jpg").disponible(true).build();
 
-        // Agregación (◊→)
+        // Relaciones de Agregación
         catPizzas.agregarProducto(p1);
         catPizzas.agregarProducto(p2);
         catPizzas.agregarProducto(p3);
@@ -87,7 +86,6 @@ public class Main {
         for (Categoria cat : conjuntoCategorias) {
             System.out.println("   *** " + cat.getNombre());
             for (Producto prod : cat.getProductos()) {
-                // Ajustado para cumplir estrictamente con el requerimiento de usar toString()
                 System.out.println("      -> " + prod.toString());
             }
         }
@@ -110,30 +108,11 @@ public class Main {
         }
         System.out.println();
 
-        System.out.println("[D] PRUEBA DE IDENTIDAD DE OBJETOS Y UNICIDAD EN SETS:");
-        Producto clonP1 = Producto.builder().id(1L).nombre("Pizza Muzzarella clonada").precio(4500.0).build();
-        System.out.println("   ¿p1.equals(clonP1) basado en ID?: " + p1.equals(clonP1));
-        
-        int tamañoAntes = catPizzas.getProductos().size();
-        catPizzas.agregarProducto(clonP1); 
-        int tamañoDespues = catPizzas.getProductos().size();
-        
-        System.out.println("   Elementos en Set iniciales (Pizzas): " + tamañoAntes + " | Elementos tras intentar duplicar: " + tamañoDespues);
-        System.out.println("   El Set bloqueó el clon utilizando el contrato equals/hashCode.");
-
-
-
-
-
-        // CONSIGNA 5
-        // ====================================================================================
+        // CONSIGNA 5 (ÚNICO BLOQUE LIMPIO)
         System.out.println("[D] PRUEBA DE IDENTIDAD, COMPARACIÓN INDIVIDUAL Y UNICIDAD EN SETS:");
-                
-        // 1. Usamos la instancia clonada que ya declaramos arriba (no le ponemos "Producto" adelante)
-        clonP1 = Producto.builder().id(1L).nombre("Pizza Muzzarella clonada").precio(4500.0).build();
+        Producto clonP1 = Producto.builder().id(1L).nombre("Pizza Muzzarella clonada").precio(4500.0).build();
         System.out.println("   -> Producto Clon Creado: " + clonP1 + "\n");
 
-        // 2. Juntamos todos los productos existentes en un conjunto para compararlos
         Set<Producto> todosLosProductos = Set.of(p1, p2, p3, p4, p5, p7, p8, p9, p10, p11, p13, p14, p15, p16, p17, p18, p20);
 
         System.out.println("   === Comparando el Clon contra toda la colección de productos ===");
@@ -143,20 +122,17 @@ public class Main {
         }
         System.out.println();
 
-        // 3. Prueba de fuego: intentar meterlo en el Set de la categoría (reutilizamos las variables sin el "int")
-        tamañoAntes = catPizzas.getProductos().size();
+        int tamañoAntes = catPizzas.getProductos().size();
         catPizzas.agregarProducto(clonP1); 
-        tamañoDespues = catPizzas.getProductos().size();
+        int tamañoDespues = catPizzas.getProductos().size();
 
         System.out.println("   === Verificación de bloqueo en la Categoría ===");
         System.out.println("   Elementos en Set iniciales (Pizzas): " + tamañoAntes + " | Elementos tras intentar duplicar: " + tamañoDespues);
         System.out.println("   Resultado: El Set bloqueó el clon utilizando el contrato equals/hashCode.");
-
-
+        System.out.println();
 
         // CONSIGNA 6 
         System.out.println("   === [DTO] Protegiendo Datos Sensibles del Cliente ===");
-        // Creamos el DTO pasando solo los campos permitidos de la entidad original
         UsuarioDTO userDTO = new UsuarioDTO(
             clienteMasActivo.getId(),
             clienteMasActivo.getNombre(),
@@ -164,13 +140,7 @@ public class Main {
             clienteMasActivo.getMail(),
             clienteMasActivo.getCelular()
         );
-        // Al usar toString() del record, vas a ver que el Rol y la Contraseña no existen en la salida
         System.out.println("   DTO Generado para salida segura -> " + userDTO.toString());
-        System.out.println();        
-
-
-
-
-
+        System.out.println();
     }
 }

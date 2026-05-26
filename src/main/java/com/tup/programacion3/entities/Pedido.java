@@ -68,4 +68,8 @@ public class Pedido extends Base implements Calculable {
             calcularTotal();
         }
     }
+    @EqualsAndHashCode.Include
+    public Long getId() {
+        return super.getId();
+    }
 }

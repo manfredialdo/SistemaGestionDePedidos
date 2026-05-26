@@ -5,15 +5,18 @@ import java.time.LocalDateTime;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.EqualsAndHashCode; 
 import lombok.experimental.SuperBuilder;
 
 @Getter
 @Setter
-@SuperBuilder // Clave: permite que los Builders de las clases hijas (como Usuario) hereden el id, eliminado, etc.
+@SuperBuilder 
+@EqualsAndHashCode(onlyExplicitlyIncluded = true) 
 public abstract class Base implements Serializable {
+    
+    @EqualsAndHashCode.Include 
     protected Long id;
     
-    // Con Builder.Default hacemos que por defecto al crear un objeto sea false y tenga la fecha de ahora
     @lombok.Builder.Default
     protected boolean eliminado = false;
     
