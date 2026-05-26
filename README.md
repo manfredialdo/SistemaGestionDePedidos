@@ -60,7 +60,7 @@ TP-LOMBOK-DTO
 
 para probar!
 
-
+        f1 + Java: Clean Java Language Server Workspace
 
         gradle clean build --refresh-dependencies
 

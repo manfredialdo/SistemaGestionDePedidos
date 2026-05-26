@@ -1,6 +1,6 @@
 package com.tup.programacion3.entities;
 
-// 1. Importamos las herramientas de Lombok
+// 1. Importamos Lombok
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import lombok.Builder;
 
-// 2. Añadimos las anotaciones de Lombok
+// 2. anotaciones Lombok
 @Getter 
 @Setter
 @NoArgsConstructor 
@@ -18,7 +18,7 @@ import lombok.Builder;
 @ToString(callSuper = true)
 public class Producto extends Base {
     
-    // Le decimos a Lombok que incluya explícitamente el id heredado de Base
+    // Lombok para que el código incluya explícitamente el id heredado de Base
     @EqualsAndHashCode.Include
     public Long getId() {
         return super.getId();
@@ -34,7 +34,7 @@ public class Producto extends Base {
     private int stock = 10;
     
     @Builder.Default
-    private String imagen = "default.png";
+    private String imagen = "pizza.png";
     
     @Builder.Default
     private Boolean disponible = true;

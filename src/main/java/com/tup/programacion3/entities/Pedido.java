@@ -7,7 +7,6 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-// 1. Importamos las herramientas de Lombok
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -16,7 +15,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import lombok.Builder;
 
-// 2. Agregamos las anotaciones de la arquitectura de Lombok
+//  anotaciones Lombok
 @Getter 
 @Setter
 @NoArgsConstructor 
@@ -30,7 +29,7 @@ public class Pedido extends Base implements Calculable {
     private Double total;
     private FormaPago formaPago;
     
-    // Con @Builder.Default nos aseguramos que el Set no sea null al usar el Builder
+    // Con @Builder.Default aseguramos que el Set no sea null al usar el Builder
     @Builder.Default
     private Set<DetallePedido> detalles = new HashSet<>();
 
@@ -43,7 +42,7 @@ public class Pedido extends Base implements Calculable {
         this.total = acumulado;
     }
 
-    // Regla de Oro de la Composición: El objeto se fabrica acá adentro
+    // Composición: El objeto se fabrica acá adentro
     public void addDetallePedido(int cantidad, Producto producto) {
         if (producto != null && cantidad > 0) {
             DetallePedido nuevoDetalle = new DetallePedido(cantidad, producto);

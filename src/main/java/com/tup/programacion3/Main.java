@@ -8,7 +8,7 @@ import com.tup.programacion3.dtos.UsuarioDTO;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("====== SIMULACIÓN CON REGLAS UML Y SETS ======\n");
+        System.out.println("REGLAS UML Y SETS ======\n");
 
         // 1. INSTANCIAR CATEGORÍAS
         Categoria catPizzas = Categoria.builder().id(1L).nombre("Pizzas").descripcion("Pizzas artesanales con masa fresca").build();
@@ -56,11 +56,13 @@ public class Main {
         catPizzas.agregarProducto(p18);
         catEnsaladas.agregarProducto(p20);
 
-        // 3. INSTANCIAR USUARIOS
+
+        // consigna 3
+        // INSTANCIAR 2 USUARIOS
         Usuario user1 = Usuario.builder().id(1L).nombre("Aldo").apellido("Manfredi").mail("aldo@mail.com").celular("11223344").contraseña("pass123").rol(Rol.USUARIO).build();
         Usuario user2 = Usuario.builder().id(2L).nombre("María").apellido("Gómez").mail("maria@mail.com").celular("55667788").contraseña("admin456").rol(Rol.ADMIN).build();
 
-        // 4. INSTANCIAR 3 PEDIDOS
+        // INSTANCIAR 3 PEDIDOS
         Pedido ped1 = Pedido.builder().id(501L).fecha(LocalDate.now()).estado(Estado.PENDIENTE).formaPago(FormaPago.TARJETA).total(0.0).build();
         ped1.addDetallePedido(1, p1); 
         ped1.addDetallePedido(2, p3);
@@ -77,7 +79,8 @@ public class Main {
         user1.agregarPedido(ped2);
         user2.agregarPedido(ped3);
 
-        // ================= PRESENTACIÓN DE RESULTADOS POR CONSOLA =================
+        // consigna 4
+        // ================= PRESENTACIÓN DE RESULTADOS POR CONSOLA usando tostring =================
         System.out.println("[A] VERIFICACIÓN DE UN PRODUCTO INDIVIDUAL (toString):");
         System.out.println("   " + p1.toString() + "\n");
 
@@ -108,7 +111,7 @@ public class Main {
         }
         System.out.println();
 
-        // CONSIGNA 5 (ÚNICO BLOQUE LIMPIO)
+        // CONSIGNA 5 
         System.out.println("[D] PRUEBA DE IDENTIDAD, COMPARACIÓN INDIVIDUAL Y UNICIDAD EN SETS:");
         Producto clonP1 = Producto.builder().id(1L).nombre("Pizza Muzzarella clonada").precio(4500.0).build();
         System.out.println("   -> Producto Clon Creado: " + clonP1 + "\n");

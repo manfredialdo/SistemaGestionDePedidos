@@ -3,7 +3,6 @@ package com.tup.programacion3.entities;
 import java.util.HashSet;
 import java.util.Set;
 
-// 1. Importamos las herramientas de Lombok que pide el TP
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -28,11 +27,11 @@ public class Categoria extends Base {
         return super.getId();
     }
 
-    // Usamos @Builder.Default para que al usar el Builder, el HashSet no se cree como null
+    // Usamos @Builder.Default  al usar el Builder, el HashSet no se cree como null
     @lombok.Builder.Default
     private Set<Producto> productos = new HashSet<>();
 
-    // 3. Mantenemos tus métodos manuales de lógica de negocio
+    // 3. Mantenemos los métodos manuales de lógica de negocio
     public void agregarProducto(Producto producto) {
         if (producto != null) {
             this.productos.add(producto);
