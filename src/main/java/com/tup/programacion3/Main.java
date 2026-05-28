@@ -7,6 +7,9 @@ import java.util.Set;
 import com.tup.programacion3.dtos.UsuarioDTO;
 
 public class Main {
+    // Variable estática para asignar identidades únicas a los detalles en el Main
+    private static long contadorDetallesId = 1L;
+
     public static void main(String[] args) {
         System.out.println("REGLAS UML Y SETS ======\n");
 
@@ -59,29 +62,46 @@ public class Main {
         // 3. INSTANCIAR USUARIOS
         Usuario user1 = Usuario.builder().id(1L).nombre("Aldo").apellido("Manfredi").mail("aldo@mail.com").celular("11223344").contraseña("pass123").rol(Rol.USUARIO).build();
         Usuario user2 = Usuario.builder().id(2L).nombre("María").apellido("Gómez").mail("maria@mail.com").celular("55667788").contraseña("admin456").rol(Rol.ADMIN).build();
+        Usuario user3 = Usuario.builder().id(3L).nombre("Cacho").apellido("Spagnolo").mail("cacho1978@mail.com").celular("11334455").contraseña("mimosa54").rol(Rol.USUARIO).build();
+        Usuario user4 = Usuario.builder().id(4L).nombre("Tito").apellido("Rossi").mail("tito1985@mail.com").celular("11445566").contraseña("cachorrito").rol(Rol.USUARIO).build();
+        Usuario user5 = Usuario.builder().id(5L).nombre("Pocho").apellido("Bianchi").mail("pocho1990@mail.com").celular("11556677").contraseña("abracito").rol(Rol.USUARIO).build();
+        Usuario user6 = Usuario.builder().id(6L).nombre("Cholo").apellido("Fernandez").mail("cholo1995@mail.com").celular("11667788").contraseña("ternura").rol(Rol.USUARIO).build();        
 
-        // 4. INSTANCIAR PEDIDOS Y AÑADIR DETALLES (Se calcula el total automáticamente aquí dentro)
-        Pedido ped1 = Pedido.builder().id(501L).fecha(LocalDate.now()).estado(Estado.PENDIENTE).formaPago(FormaPago.TARJETA).total(0.0).build();
-        ped1.addDetallePedido(1, p1); 
-        ped1.addDetallePedido(2, p3);
 
-        Pedido ped2 = Pedido.builder().id(502L).fecha(LocalDate.now()).estado(Estado.CONFIRMADO).formaPago(FormaPago.TRANSFERENCIA).total(0.0).build();
-        ped2.addDetallePedido(1, p2);
-        ped2.addDetallePedido(3, p7);
 
-        Pedido ped3 = Pedido.builder().id(503L).fecha(LocalDate.now()).estado(Estado.TERMINADO).formaPago(FormaPago.EFECTIVO).total(0.0).build();
-        ped3.addDetallePedido(1, p4);
-        ped3.addDetallePedido(1, p10);
+
+        Set<Usuario> conjuntoUsuarios = Set.of(user1, user2, user3, user4, user5, user6);
+        Set<Producto> todosLosProductos = Set.of(p1, p2, p3, p4, p5, p7, p8, p9, p10, p11, p13, p14, p15, p16, p17, p18, p20);
+
+        // 4. INSTANCIAR PEDIDOS Y AÑADIR DETALLES (Se calcula el total automáticamente gracias a addDetallePedido)
+        Pedido ped1 = Pedido.builder().id(501L).fecha(LocalDate.now()).estado(Estado.PENDIENTE).formaPago(FormaPago.TARJETA).build();
+        ped1.addDetallePedido(1, p1); ped1.getDetalles().forEach(d -> { if(d.getId() == null) d.setId(contadorDetallesId++); });
+        ped1.addDetallePedido(2, p3); ped1.getDetalles().forEach(d -> { if(d.getId() == null) d.setId(contadorDetallesId++); });
+
+        Pedido ped2 = Pedido.builder().id(502L).fecha(LocalDate.now()).estado(Estado.CONFIRMADO).formaPago(FormaPago.TRANSFERENCIA).build();
+        ped2.addDetallePedido(1, p2);  ped2.getDetalles().forEach(d -> { if(d.getId() == null) d.setId(contadorDetallesId++); });
+        ped2.addDetallePedido(3, p7);  ped2.getDetalles().forEach(d -> { if(d.getId() == null) d.setId(contadorDetallesId++); });
+        ped2.addDetallePedido(3, p10); ped2.getDetalles().forEach(d -> { if(d.getId() == null) d.setId(contadorDetallesId++); });
+        ped2.addDetallePedido(3, p13); ped2.getDetalles().forEach(d -> { if(d.getId() == null) d.setId(contadorDetallesId++); });
+        ped2.addDetallePedido(3, p14); ped2.getDetalles().forEach(d -> { if(d.getId() == null) d.setId(contadorDetallesId++); });
+        ped2.addDetallePedido(3, p15); ped2.getDetalles().forEach(d -> { if(d.getId() == null) d.setId(contadorDetallesId++); });
+
+        Pedido ped3 = Pedido.builder().id(503L).fecha(LocalDate.now()).estado(Estado.TERMINADO).formaPago(FormaPago.EFECTIVO).build();
+        ped3.addDetallePedido(1, p4);  ped3.getDetalles().forEach(d -> { if(d.getId() == null) d.setId(contadorDetallesId++); });
+        ped3.addDetallePedido(1, p10); ped3.getDetalles().forEach(d -> { if(d.getId() == null) d.setId(contadorDetallesId++); });
+
         
+
+        // total usando el método de Pedidos.java        
+        ped1.calcularTotal();
+        ped2.calcularTotal();
+        ped3.calcularTotal();
+
         user1.agregarPedido(ped1);
         user1.agregarPedido(ped2);
         user2.agregarPedido(ped3);
 
-        // Definimos las colecciones necesarias para las consultas de los Streams
-        Set<Usuario> conjuntoUsuarios = Set.of(user1, user2);
-        Set<Producto> todosLosProductos = Set.of(p1, p2, p3, p4, p5, p7, p8, p9, p10, p11, p13, p14, p15, p16, p17, p18, p20);
-
-        // Buscamos el usuario más activo para el DTO de la Consigna 6
+        // Busco usuario mas activo x dto
         Usuario clienteMasActivo = user1;
         for (Usuario u : conjuntoUsuarios) {
             if (u.getPedidos().size() > clienteMasActivo.getPedidos().size()) {
@@ -89,7 +109,7 @@ public class Main {
             }
         }
 
-        // CONSIGNA 6 
+        // DTO
         System.out.println("=== [DTO] Protegiendo Datos Sensibles del Cliente ===");
         UsuarioDTO userDTO = new UsuarioDTO(
             clienteMasActivo.getId(),
@@ -102,24 +122,24 @@ public class Main {
         System.out.println();
 
 
-        // ================= CONSIGNAS EVALUADAS =================
+        // ================= CONSIGNAS TP 7 =================
 
-        // 1) Demostración del método en clase Pedido encargado de calcular el total
-        System.out.println("[REQUERIMIENTO 1] CÁLCULO DE TOTALES EN PEDIDOS (MÉTODO INTERNO):");
+        // 1) demo: Desarrolle un método en clase Pedido encargado de calcular el total
+        System.out.println("[CONSIGNA 1] CÁLCULO DE TOTALES EN PEDIDOS (MÉTODO INTERNO):");
         System.out.println("    Total calculado para el Pedido " + ped1.getId() + ": $" + ped1.getTotal());
         System.out.println("    Total calculado para el Pedido " + ped2.getId() + ": $" + ped2.getTotal());
         System.out.println("    Total calculado para el Pedido " + ped3.getId() + ": $" + ped3.getTotal());
         System.out.println();
 
         // 2) Mostrar por consola productos disponibles (Uso de Streams + Filter)
-        System.out.println("[REQUERIMIENTO 2] LISTADO DE PRODUCTOS DISPONIBLES:");
+        System.out.println("[CONSIGNA 2] LISTADO DE PRODUCTOS DISPONIBLES:");
         todosLosProductos.stream()
                          .filter(Producto::getDisponible)
                          .forEach(p -> System.out.println("    -> " + p.getNombre() + " | Precio: $" + p.getPrecio() + " | Stock: " + p.getStock()));
         System.out.println();
 
         // 3) Mostrar por consola la cantidad de ítems que tiene un pedido (Uso de Streams + mapToInt + sum)
-        System.out.println("[REQUERIMIENTO 3] CANTIDAD TOTAL DE ÍTEMS POR PEDIDO:");
+        System.out.println("[CONSIGNA 3] CANTIDAD TOTAL DE ÍTEMS POR PEDIDO:");
         
         int totalItemsPed1 = ped1.getDetalles().stream()
                                               .mapToInt(DetallePedido::getCantidad)
@@ -130,6 +150,11 @@ public class Main {
                                               .mapToInt(DetallePedido::getCantidad)
                                               .sum();
         System.out.println("    El Pedido ID " + ped2.getId() + " contiene un total de (" + totalItemsPed2 + ") productos físicos.");
+
+        int totalItemsPed3 = ped3.getDetalles().stream()
+                                              .mapToInt(DetallePedido::getCantidad)
+                                              .sum();
+        System.out.println("    El Pedido ID " + ped3.getId() + " contiene un total de (" + totalItemsPed3 + ") productos físicos.");
         System.out.println();        
     }
 }
