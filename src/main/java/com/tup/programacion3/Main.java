@@ -124,11 +124,17 @@ public class Main {
 
         // ================= CONSIGNAS TP 7 =================
 
-        // 1) Demostración del método en clase Pedido encargado de calcular el total
-        System.out.println("[TP7consigna 1] CÁLCULO DE TOTALES EN PEDIDOS (MÉTODO INTERNO):");
-        System.out.println("    Total calculado para el Pedido " + ped1.getId() + ": $" + ped1.getTotal());
-        System.out.println("    Total calculado para el Pedido " + ped2.getId() + ": $" + ped2.getTotal());
-        System.out.println("    Total calculado para el Pedido " + ped3.getId() + ": $" + ped3.getTotal());
+// ================= CONSIGNAS TP 7 =================
+
+        // 1) Demostración del método en clase Pedido encargado de calcular el total (Solución Escalable con Streams)
+        System.out.println("[consigna 1] CÁLCULO DE TOTALES EN PEDIDOS (MÉTODO INTERNO):");
+        
+        conjuntoUsuarios.stream()
+                .flatMap(usuario -> usuario.getPedidos().stream())
+                .forEach(pedido -> {
+                    pedido.calcularTotal();
+                    System.out.println("    Total calculado para el Pedido " + pedido.getId() + ": $" + pedido.getTotal());
+                });
         System.out.println();
 
         // 2) Mostrar por consola productos disponibles (Uso de Streams + Filter)
