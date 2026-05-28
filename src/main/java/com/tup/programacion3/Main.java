@@ -124,37 +124,38 @@ public class Main {
 
         // ================= CONSIGNAS TP 7 =================
 
-        // 1) demo: Desarrolle un método en clase Pedido encargado de calcular el total
-        System.out.println("[CONSIGNA 1] CÁLCULO DE TOTALES EN PEDIDOS (MÉTODO INTERNO):");
+        // 1) Demostración del método en clase Pedido encargado de calcular el total
+        System.out.println("[TP7consigna 1] CÁLCULO DE TOTALES EN PEDIDOS (MÉTODO INTERNO):");
         System.out.println("    Total calculado para el Pedido " + ped1.getId() + ": $" + ped1.getTotal());
         System.out.println("    Total calculado para el Pedido " + ped2.getId() + ": $" + ped2.getTotal());
         System.out.println("    Total calculado para el Pedido " + ped3.getId() + ": $" + ped3.getTotal());
         System.out.println();
 
         // 2) Mostrar por consola productos disponibles (Uso de Streams + Filter)
-        System.out.println("[CONSIGNA 2] LISTADO DE PRODUCTOS DISPONIBLES:");
+        System.out.println("[TP7consigna 2] LISTADO DE PRODUCTOS DISPONIBLES:");
         todosLosProductos.stream()
-                         .filter(Producto::getDisponible)
-                         .forEach(p -> System.out.println("    -> " + p.getNombre() + " | Precio: $" + p.getPrecio() + " | Stock: " + p.getStock()));
+                        .filter(Producto::getDisponible)
+                        .forEach(p -> System.out.println("    -> " + p.getNombre() + " | Precio: $" + p.getPrecio() + " | Stock: " + p.getStock()));
         System.out.println();
 
-        // 3) Mostrar por consola la cantidad de ítems que tiene un pedido (Uso de Streams + mapToInt + sum)
-        System.out.println("[CONSIGNA 3] CANTIDAD TOTAL DE ÍTEMS POR PEDIDO:");
-        
-        int totalItemsPed1 = ped1.getDetalles().stream()
-                                              .mapToInt(DetallePedido::getCantidad)
-                                              .sum();
-        System.out.println("    El Pedido ID " + ped1.getId() + " contiene un total de (" + totalItemsPed1 + ") productos físicos.");
+        // ================= 
+        System.out.println("[TP7consigna 3] CANTIDAD TOTAL DE ÍTEMS Y DESGLOSE POR PEDIDO:");
 
-        int totalItemsPed2 = ped2.getDetalles().stream()
-                                              .mapToInt(DetallePedido::getCantidad)
-                                              .sum();
-        System.out.println("    El Pedido ID " + ped2.getId() + " contiene un total de (" + totalItemsPed2 + ") productos físicos.");
-
-        int totalItemsPed3 = ped3.getDetalles().stream()
-                                              .mapToInt(DetallePedido::getCantidad)
-                                              .sum();
-        System.out.println("    El Pedido ID " + ped3.getId() + " contiene un total de (" + totalItemsPed3 + ") productos físicos.");
-        System.out.println();        
+        conjuntoUsuarios.stream()
+                // 1. Extraemos y aplanamos todos los pedidos de todos los usuarios en un único Stream<Pedido>
+                .flatMap(usuario -> usuario.getPedidos().stream())
+                // 2. Procesamos cada pedido
+                .forEach(pedido -> {
+                    // Calculamos los ítems de este pedido usando streams internos
+                    long cantidadItems = pedido.getDetalles().stream().count();
+                    
+                    System.out.println("    El Pedido ID " + pedido.getId() + " tiene (" + cantidadItems + ") ítems registrados en su detalle.");
+                    System.out.println("    Detalle de ítems:");
+                    
+                    // Recorremos el Set de detalles de este pedido con programación funcional para el desglose
+                    pedido.getDetalles().stream()
+                            .forEach(item -> System.out.println("      -> Producto: " + item.getProducto().getNombre() + " | Cantidad: " + item.getCantidad()));
+                    System.out.println();
+                });   
     }
 }
