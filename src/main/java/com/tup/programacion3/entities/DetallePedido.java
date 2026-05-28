@@ -1,25 +1,34 @@
+// /home/user/SistemaGestionDePedidos/src/main/java/com/tup/programacion3/entities/DetallePedido.java
 package com.tup.programacion3.entities;
 
-import java.util.Objects;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.NoArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.SuperBuilder;
 
+@Getter
+@NoArgsConstructor 
+@SuperBuilder 
+@EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
 public class DetallePedido extends Base {
+    
     private int cantidad;
+    
+    @Setter 
     private Double subtotal;
     
-    // Asociación Unidireccional: Detalle -> Producto
     private Producto producto;
 
-    public DetallePedido() {
-        super();
-    }
-
+    // === CONSTRUCTOR TRADICIONAL 
     public DetallePedido(int cantidad, Producto producto) {
         super();
         this.cantidad = cantidad;
         this.producto = producto;
-        calcularSubtotal();
+        calcularSubtotal(); // Mantiene el cálculo inicial vivo
     }
 
+    // === LÓGICA DE NEGOCIO ===
     public void calcularSubtotal() {
         if (this.producto != null) {
             this.subtotal = this.cantidad * this.producto.getPrecio();
@@ -28,30 +37,15 @@ public class DetallePedido extends Base {
         }
     }
 
-    public int getCantidad() { return cantidad; }
+    // === SETTERS PERSONALIZADOS
     public void setCantidad(int cantidad) { 
         this.cantidad = cantidad; 
-        calcularSubtotal();
+        calcularSubtotal(); 
     }
-    public Double getSubtotal() { return subtotal; }
-    public void setSubtotal(Double subtotal) { this.subtotal = subtotal; }
-    public Producto getProducto() { return producto; }
+    
     public void setProducto(Producto producto) { 
         this.producto = producto; 
-        calcularSubtotal();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        DetallePedido que = (DetallePedido) o;
-        return cantidad == que.cantidad && Objects.equals(producto, que.producto);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(cantidad, producto);
+        calcularSubtotal(); 
     }
 
     @Override

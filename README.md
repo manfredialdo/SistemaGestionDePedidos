@@ -1,5 +1,12 @@
-# trabajo practico 6 progrAmaacion 3
-## TP-LOMBOK-DTO 
+# trabajo practico 7 progrAmaacion 3
+## tp - programacion funcional: 
+
+## CONSIGNAS Utilizando programación funcional.
+1. Desarrolle un método en clase Pedido que se encargue de calcular el total.
+2. Mostrar por consola productos disponibles
+3. Mostrar por consola la cantidad de ítems que tiene un pedido ( ejemplo 2 panchos, 2
+bebidas, deberá de decir que hay 4 items)
+4. Detectar productos que tengan menos de 5 como valor en stock
 
 
 
@@ -29,7 +36,7 @@ b. Contraseña
 ### estructura del tp
 
 ```text
-TP-LOMBOK-DTO
+TP_SistemaGestionDePedidos
 ├── src
 │   └── main
 │       ├── java
