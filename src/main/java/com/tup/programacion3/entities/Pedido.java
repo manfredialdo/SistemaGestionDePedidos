@@ -33,15 +33,7 @@ public class Pedido extends Base implements Calculable {
     @Builder.Default
     private Set<DetallePedido> detalles = new HashSet<>();
 
-    @Override
-    public void calcularTotal() {
-        double acumulado = 0.0;
-        for (DetallePedido dp : detalles) {
-            acumulado += dp.getSubtotal();
-        }
-        this.total = acumulado;
-    }
-
+    
     // Composición: El objeto se fabrica acá adentro
     public void addDetallePedido(int cantidad, Producto producto) {
         if (producto != null && cantidad > 0) {
@@ -71,4 +63,12 @@ public class Pedido extends Base implements Calculable {
     public Long getId() {
         return super.getId();
     }
+    
+    @Override
+    public void calcularTotal() {
+        this.total = detalles.stream()
+                             .mapToDouble(DetallePedido::getSubtotal)
+                             .sum();
+    }
+
 }
