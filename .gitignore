@@ -28,5 +28,4 @@ bin/
 # 3. Archivos del Sistema y Temporales
 .DS_Store
 Thumbs.db
-.kotlin
 HELP.md
