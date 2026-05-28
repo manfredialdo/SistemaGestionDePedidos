@@ -145,5 +145,33 @@ public class Main {
         );
         System.out.println("   DTO Generado para salida segura -> " + userDTO.toString());
         System.out.println();
+
+
+
+
+        // ================= CONSIGNAS TP7 =================
+
+        // 2) Mostrar por consola productos disponibles
+        System.out.println("[NUEVO 2] LISTADO DE PRODUCTOS DISPONIBLES:");
+        todosLosProductos.stream()
+                         .filter(Producto::getDisponible)
+                         .forEach(p -> System.out.println("    -> " + p.getNombre() + " | Precio: $" + p.getPrecio() + " | Stock: " + p.getStock()));
+        System.out.println();
+
+
+        // 3) Mostrar por consola la cantidad de ítems que tiene un pedido
+        System.out.println("[NUEVO 3] CANTIDAD TOTAL DE ÍTEMS POR PEDIDO:");
+        // Evaluamos el pedido 1 (ped1)
+        int totalItemsPed1 = ped1.getDetalles().stream()
+                                              .mapToInt(DetallePedido::getCantidad)
+                                              .sum();
+        System.out.println("    El Pedido ID " + ped1.getId() + " contiene un total de (" + totalItemsPed1 + ") productos físicos.");
+
+        // Evaluamos el pedido 2 (ped2) para verificar con otro ejemplo
+        int totalItemsPed2 = ped2.getDetalles().stream()
+                                              .mapToInt(DetallePedido::getCantidad)
+                                              .sum();
+        System.out.println("    El Pedido ID " + ped2.getId() + " contiene un total de (" + totalItemsPed2 + ") productos físicos.");
+        System.out.println();        
     }
 }

@@ -48,4 +48,7 @@ para probar!
         gradle clean build --refresh-dependencies
 
         gradle build && java -cp build/classes/java/main com.tup.programacion3.Main
+
+        cd src && find . -type f -name "*.java" -exec cat {} +
+
         
