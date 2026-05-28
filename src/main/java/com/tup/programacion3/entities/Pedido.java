@@ -1,3 +1,4 @@
+// src/main/java/com/tup/programacion3/entities/Pedido.java
 package com.tup.programacion3.entities;
 
 import com.tup.programacion3.enums.Estado;

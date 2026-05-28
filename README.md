@@ -51,4 +51,6 @@ para probar!
 
         cd src && find . -type f -name "*.java" -exec cat {} +
 
+        gradle run
+
         

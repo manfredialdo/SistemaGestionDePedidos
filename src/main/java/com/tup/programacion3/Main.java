@@ -56,13 +56,11 @@ public class Main {
         catPizzas.agregarProducto(p18);
         catEnsaladas.agregarProducto(p20);
 
-
-        // consigna 3
-        // INSTANCIAR 2 USUARIOS
+        // 3. INSTANCIAR USUARIOS
         Usuario user1 = Usuario.builder().id(1L).nombre("Aldo").apellido("Manfredi").mail("aldo@mail.com").celular("11223344").contraseña("pass123").rol(Rol.USUARIO).build();
         Usuario user2 = Usuario.builder().id(2L).nombre("María").apellido("Gómez").mail("maria@mail.com").celular("55667788").contraseña("admin456").rol(Rol.ADMIN).build();
 
-        // INSTANCIAR 3 PEDIDOS
+        // 4. INSTANCIAR PEDIDOS Y AÑADIR DETALLES (Se calcula el total automáticamente aquí dentro)
         Pedido ped1 = Pedido.builder().id(501L).fecha(LocalDate.now()).estado(Estado.PENDIENTE).formaPago(FormaPago.TARJETA).total(0.0).build();
         ped1.addDetallePedido(1, p1); 
         ped1.addDetallePedido(2, p3);
@@ -79,63 +77,20 @@ public class Main {
         user1.agregarPedido(ped2);
         user2.agregarPedido(ped3);
 
-        // consigna 4
-        // ================= PRESENTACIÓN DE RESULTADOS POR CONSOLA usando tostring =================
-        System.out.println("[A] VERIFICACIÓN DE UN PRODUCTO INDIVIDUAL (toString):");
-        System.out.println("   " + p1.toString() + "\n");
-
-        System.out.println("[B] LISTADO COMPLETO DE PRODUCTOS CARGADOS (toString por Categoría):");
-        Set<Categoria> conjuntoCategorias = Set.of(catPizzas, catHamburguesas, catBebidas, catPostres, catEmpanadas, catEnsaladas);
-        for (Categoria cat : conjuntoCategorias) {
-            System.out.println("   *** " + cat.getNombre());
-            for (Producto prod : cat.getProductos()) {
-                System.out.println("      -> " + prod.toString());
-            }
-        }
-        System.out.println();
-
-        System.out.println("[C] HISTORIAL COMPLETO DEL USUARIO MAS ACTIVO (toString):");
+        // Definimos las colecciones necesarias para las consultas de los Streams
         Set<Usuario> conjuntoUsuarios = Set.of(user1, user2);
+        Set<Producto> todosLosProductos = Set.of(p1, p2, p3, p4, p5, p7, p8, p9, p10, p11, p13, p14, p15, p16, p17, p18, p20);
+
+        // Buscamos el usuario más activo para el DTO de la Consigna 6
         Usuario clienteMasActivo = user1;
         for (Usuario u : conjuntoUsuarios) {
             if (u.getPedidos().size() > clienteMasActivo.getPedidos().size()) {
                 clienteMasActivo = u;
             }
         }
-        System.out.println("   Cliente: " + clienteMasActivo.getNombre() + " " + clienteMasActivo.getApellido());
-        for (Pedido p : clienteMasActivo.getPedidos()) {
-            System.out.println("      " + p.toString());
-            for (DetallePedido dp : p.getDetalles()) {
-                System.out.println("         " + dp.toString());
-            }
-        }
-        System.out.println();
-
-        // CONSIGNA 5 
-        System.out.println("[D] PRUEBA DE IDENTIDAD, COMPARACIÓN INDIVIDUAL Y UNICIDAD EN SETS:");
-        Producto clonP1 = Producto.builder().id(1L).nombre("Pizza Muzzarella clonada").precio(4500.0).build();
-        System.out.println("   -> Producto Clon Creado: " + clonP1 + "\n");
-
-        Set<Producto> todosLosProductos = Set.of(p1, p2, p3, p4, p5, p7, p8, p9, p10, p11, p13, p14, p15, p16, p17, p18, p20);
-
-        System.out.println("   === Comparando el Clon contra toda la colección de productos ===");
-        for (Producto prod : todosLosProductos) {
-            boolean sonIguales = clonP1.equals(prod);
-            System.out.println("   ¿Clon(ID=" + clonP1.getId() + ") es igual a " + prod.getNombre() + "(ID=" + prod.getId() + ")?: " + sonIguales);
-        }
-        System.out.println();
-
-        int tamañoAntes = catPizzas.getProductos().size();
-        catPizzas.agregarProducto(clonP1); 
-        int tamañoDespues = catPizzas.getProductos().size();
-
-        System.out.println("   === Verificación de bloqueo en la Categoría ===");
-        System.out.println("   Elementos en Set iniciales (Pizzas): " + tamañoAntes + " | Elementos tras intentar duplicar: " + tamañoDespues);
-        System.out.println("   Resultado: El Set bloqueó el clon utilizando el contrato equals/hashCode.");
-        System.out.println();
 
         // CONSIGNA 6 
-        System.out.println("   === [DTO] Protegiendo Datos Sensibles del Cliente ===");
+        System.out.println("=== [DTO] Protegiendo Datos Sensibles del Cliente ===");
         UsuarioDTO userDTO = new UsuarioDTO(
             clienteMasActivo.getId(),
             clienteMasActivo.getNombre(),
@@ -143,31 +98,34 @@ public class Main {
             clienteMasActivo.getMail(),
             clienteMasActivo.getCelular()
         );
-        System.out.println("   DTO Generado para salida segura -> " + userDTO.toString());
+        System.out.println("DTO Generado para salida segura -> " + userDTO.toString());
         System.out.println();
 
 
+        // ================= CONSIGNAS EVALUADAS =================
 
+        // 1) Demostración del método en clase Pedido encargado de calcular el total
+        System.out.println("[REQUERIMIENTO 1] CÁLCULO DE TOTALES EN PEDIDOS (MÉTODO INTERNO):");
+        System.out.println("    Total calculado para el Pedido " + ped1.getId() + ": $" + ped1.getTotal());
+        System.out.println("    Total calculado para el Pedido " + ped2.getId() + ": $" + ped2.getTotal());
+        System.out.println("    Total calculado para el Pedido " + ped3.getId() + ": $" + ped3.getTotal());
+        System.out.println();
 
-        // ================= CONSIGNAS TP7 =================
-
-        // 2) Mostrar por consola productos disponibles
-        System.out.println("[NUEVO 2] LISTADO DE PRODUCTOS DISPONIBLES:");
+        // 2) Mostrar por consola productos disponibles (Uso de Streams + Filter)
+        System.out.println("[REQUERIMIENTO 2] LISTADO DE PRODUCTOS DISPONIBLES:");
         todosLosProductos.stream()
                          .filter(Producto::getDisponible)
                          .forEach(p -> System.out.println("    -> " + p.getNombre() + " | Precio: $" + p.getPrecio() + " | Stock: " + p.getStock()));
         System.out.println();
 
-
-        // 3) Mostrar por consola la cantidad de ítems que tiene un pedido
-        System.out.println("[NUEVO 3] CANTIDAD TOTAL DE ÍTEMS POR PEDIDO:");
-        // Evaluamos el pedido 1 (ped1)
+        // 3) Mostrar por consola la cantidad de ítems que tiene un pedido (Uso de Streams + mapToInt + sum)
+        System.out.println("[REQUERIMIENTO 3] CANTIDAD TOTAL DE ÍTEMS POR PEDIDO:");
+        
         int totalItemsPed1 = ped1.getDetalles().stream()
                                               .mapToInt(DetallePedido::getCantidad)
                                               .sum();
         System.out.println("    El Pedido ID " + ped1.getId() + " contiene un total de (" + totalItemsPed1 + ") productos físicos.");
 
-        // Evaluamos el pedido 2 (ped2) para verificar con otro ejemplo
         int totalItemsPed2 = ped2.getDetalles().stream()
                                               .mapToInt(DetallePedido::getCantidad)
                                               .sum();
