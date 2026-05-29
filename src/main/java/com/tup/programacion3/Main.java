@@ -7,7 +7,6 @@ import java.util.Set;
 import com.tup.programacion3.dtos.UsuarioDTO;
 
 public class Main {
-    // Variable estática para asignar identidades únicas a los detalles en el Main
     private static long contadorDetallesId = 1L;
 
     public static void main(String[] args) {
@@ -67,13 +66,7 @@ public class Main {
         Usuario user5 = Usuario.builder().id(5L).nombre("Pocho").apellido("Bianchi").mail("pocho1990@mail.com").celular("11556677").contraseña("abracito").rol(Rol.USUARIO).build();
         Usuario user6 = Usuario.builder().id(6L).nombre("Cholo").apellido("Fernandez").mail("cholo1995@mail.com").celular("11667788").contraseña("ternura").rol(Rol.USUARIO).build();        
 
-
-
-
-        Set<Usuario> conjuntoUsuarios = Set.of(user1, user2, user3, user4, user5, user6);
-        Set<Producto> todosLosProductos = Set.of(p1, p2, p3, p4, p5, p7, p8, p9, p10, p11, p13, p14, p15, p16, p17, p18, p20);
-
-        // 4. INSTANCIAR PEDIDOS Y AÑADIR DETALLES (Se calcula el total automáticamente gracias a addDetallePedido)
+        // 4. INSTANCIAR PEDIDOS Y COMPOSICIÓN DE DETALLES
         Pedido ped1 = Pedido.builder().id(501L).fecha(LocalDate.now()).estado(Estado.PENDIENTE).formaPago(FormaPago.TARJETA).build();
         ped1.addDetallePedido(1, p1); ped1.getDetalles().forEach(d -> { if(d.getId() == null) d.setId(contadorDetallesId++); });
         ped1.addDetallePedido(2, p3); ped1.getDetalles().forEach(d -> { if(d.getId() == null) d.setId(contadorDetallesId++); });
@@ -88,20 +81,19 @@ public class Main {
 
         Pedido ped3 = Pedido.builder().id(503L).fecha(LocalDate.now()).estado(Estado.TERMINADO).formaPago(FormaPago.EFECTIVO).build();
         ped3.addDetallePedido(1, p4);  ped3.getDetalles().forEach(d -> { if(d.getId() == null) d.setId(contadorDetallesId++); });
+        ped3.addDetallePedido(3, p7);  ped3.getDetalles().forEach(d -> { if(d.getId() == null) d.setId(contadorDetallesId++); });
         ped3.addDetallePedido(1, p10); ped3.getDetalles().forEach(d -> { if(d.getId() == null) d.setId(contadorDetallesId++); });
 
-        
-
-        // total usando el método de Pedidos.java        
-        ped1.calcularTotal();
-        ped2.calcularTotal();
-        ped3.calcularTotal();
-
+        // 5. ASOCIACIÓN DE COMPORTAMIENTO: RELACIONAR PEDIDOS A LOS USUARIOS CORRESPONDIENTES
         user1.agregarPedido(ped1);
         user1.agregarPedido(ped2);
         user2.agregarPedido(ped3);
 
-        // Busco usuario mas activo x dto
+        // Definición de las colecciones maestras para procesar los flujos funcionales
+        Set<Usuario> conjuntoUsuarios = Set.of(user1, user2, user3, user4, user5, user6);
+        Set<Producto> todosLosProductos = Set.of(p1, p2, p3, p4, p5, p7, p8, p9, p10, p11, p13, p14, p15, p16, p17, p18, p20);
+
+        // 6. DETECTAR EL CLIENTE MÁS ACTIVO Y ASIGNAR AL DTO (Ahora sí los usuarios tienen sus pedidos asociados)
         Usuario clienteMasActivo = user1;
         for (Usuario u : conjuntoUsuarios) {
             if (u.getPedidos().size() > clienteMasActivo.getPedidos().size()) {
@@ -109,7 +101,6 @@ public class Main {
             }
         }
 
-        // DTO
         System.out.println("=== [DTO] Protegiendo Datos Sensibles del Cliente ===");
         UsuarioDTO userDTO = new UsuarioDTO(
             clienteMasActivo.getId(),
@@ -119,46 +110,44 @@ public class Main {
             clienteMasActivo.getCelular()
         );
         System.out.println("DTO Generado para salida segura -> " + userDTO.toString());
+        System.out.println("\n" + "=".repeat(40) + "\n");
+
+
+        // ================= CONSIGNAS TP 7 (STREAMS & LOGICA DE NEGOCIO) =================
+
+        // 1) Demostración del método interno calcularTotal() de la clase Pedido
+        // 1) método de la clase Pedido encargado de calcular el total
+        System.out.println(" ================= RESPUESTAS TP 7   =================");
+        System.out.println("[TP7 - consigna 1] CÁLCULO DE TOTALES EN PEDIDOS:");
+        // Ejecutamos el método @Override calcularTotal() nativo de cada instancia de Pedido
+        ped1.calcularTotal();
+        ped2.calcularTotal();
+        ped3.calcularTotal();
+
+        // Imprimimos el atributo 'total' que fue actualizado internamente por el stream de Pedido.java
+        System.out.println("    Total calculado para el Pedido " + ped1.getId() + ": $" + ped1.getTotal());
+        System.out.println("    Total calculado para el Pedido " + ped2.getId() + ": $" + ped2.getTotal());
+        System.out.println("    Total calculado para el Pedido " + ped3.getId() + ": $" + ped3.getTotal());
         System.out.println();
 
-
-        // ================= CONSIGNAS TP 7 =================
-
-// ================= CONSIGNAS TP 7 =================
-
-        // 1) Demostración del método en clase Pedido encargado de calcular el total (Solución Escalable con Streams)
-        System.out.println("[consigna 1] CÁLCULO DE TOTALES EN PEDIDOS (MÉTODO INTERNO):");
-        
-        conjuntoUsuarios.stream()
-                .flatMap(usuario -> usuario.getPedidos().stream())
-                .forEach(pedido -> {
-                    pedido.calcularTotal();
-                    System.out.println("    Total calculado para el Pedido " + pedido.getId() + ": $" + pedido.getTotal());
-                });
-        System.out.println();
 
         // 2) Mostrar por consola productos disponibles (Uso de Streams + Filter)
-        System.out.println("[TP7consigna 2] LISTADO DE PRODUCTOS DISPONIBLES:");
+        System.out.println("[TP7 - Consigna 2] LISTADO DE PRODUCTOS DISPONIBLES:");
         todosLosProductos.stream()
-                        .filter(Producto::getDisponible)
-                        .forEach(p -> System.out.println("    -> " + p.getNombre() + " | Precio: $" + p.getPrecio() + " | Stock: " + p.getStock()));
+                .filter(Producto::getDisponible)
+                .forEach(p -> System.out.println("    -> " + p.getNombre() + " | Precio: $" + p.getPrecio() + " | Stock: " + p.getStock()));
         System.out.println();
 
-        // ================= 
-        System.out.println("[TP7consigna 3] CANTIDAD TOTAL DE ÍTEMS Y DESGLOSE POR PEDIDO:");
-
+        // 3) Mostrar por consola la cantidad de ítems y desglose detallado de cada pedido
+        System.out.println("[TP7 - Consigna 3] CANTIDAD TOTAL DE ÍTEMS Y DESGLOSE POR PEDIDO:");
         conjuntoUsuarios.stream()
-                // 1. Extraemos y aplanamos todos los pedidos de todos los usuarios en un único Stream<Pedido>
                 .flatMap(usuario -> usuario.getPedidos().stream())
-                // 2. Procesamos cada pedido
                 .forEach(pedido -> {
-                    // Calculamos los ítems de este pedido usando streams internos
                     long cantidadItems = pedido.getDetalles().stream().count();
                     
                     System.out.println("    El Pedido ID " + pedido.getId() + " tiene (" + cantidadItems + ") ítems registrados en su detalle.");
                     System.out.println("    Detalle de ítems:");
                     
-                    // Recorremos el Set de detalles de este pedido con programación funcional para el desglose
                     pedido.getDetalles().stream()
                             .forEach(item -> System.out.println("      -> Producto: " + item.getProducto().getNombre() + " | Cantidad: " + item.getCantidad()));
                     System.out.println();

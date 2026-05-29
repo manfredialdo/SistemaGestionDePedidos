@@ -35,7 +35,7 @@ TP_SistemaGestionDePedidos
 │       │           └── Main.java
 │       └── resources
 ├── build.gradle
-└── settings.gradle
+└── settings.gradle```
 
 
 
